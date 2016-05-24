@@ -50,7 +50,7 @@ bool Dealer::solicitarDecisiones(Jugador * it)
 {
 	bool desicion;
 	Jugadas jugada;
-	float calificacion = jugada.establecerCalificacion(); //habría que modificar esto en jugadas, no entendí porque calificacion recibía un float.
+	float calificacion = jugada.obtenerCalificacion(); 
 	if (it->tomarDecision(calificacion) == 0)
 	{
 		for (list<Jugador*>::iterator ite = jugadores.begin(); ite != jugadores.end(); ite++)
@@ -85,8 +85,8 @@ void Dealer::llenarBote(int apuesta)
 	bote += apuesta;
 }
 
-list<Deck*>  Dealer::revelar()
+void Dealer::revelar()
 {
-return nullptr;
+//return comunitarias;
 }
 

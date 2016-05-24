@@ -9,13 +9,26 @@ Carta::Carta(int numero, int palo)
 
 Carta::Carta()
 {
+
 }
 
 Carta::~Carta()
 {
+
 }
 
-ostream & operator<<(ostream &cadena, Carta &carta)
+void Carta::operator=(Carta & otra)
 {
-	return cadena << "Numero: " << carta.numeroCarta << "\t Palo: " << carta.palo << endl;
+	this->numeroCarta = otra.numeroCarta;
+	this->palo = otra.palo;
+}
+
+int Carta::getValor()
+{
+	return this->numeroCarta;
+}
+
+int Carta::getPalo()
+{
+	return this->palo;
 }

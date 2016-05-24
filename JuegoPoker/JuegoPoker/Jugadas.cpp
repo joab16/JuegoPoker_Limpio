@@ -119,3 +119,8 @@ int Jugadas::esCartaAlta(Deck mano[])
 {
 	return 0;
 }
+
+float Jugadas::obtenerCalificacion()
+{
+	return 0.0f;
+}

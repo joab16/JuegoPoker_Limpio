@@ -38,4 +38,6 @@ public:
 	int esPareja(Deck mano[]);
 
 	int esCartaAlta(Deck mano[]);
+	
+	float obtenerCalificacion();
 };

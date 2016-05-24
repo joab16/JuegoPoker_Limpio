@@ -39,5 +39,5 @@ public:
 
 	void llenarBote(int);
 
-	list<Deck*> revelar();
+	void revelar();
 };
