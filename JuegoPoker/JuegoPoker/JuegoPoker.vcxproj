@@ -150,6 +150,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Jugadas.h" />
     <ClInclude Include="Jugador.h" />
+    <ClInclude Include="PruebaDealer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TipoJugador.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="JuegoPoker.cpp" />
     <ClCompile Include="Jugadas.cpp" />
     <ClCompile Include="Jugador.cpp" />
+    <ClCompile Include="PruebaDealer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
