@@ -31,7 +31,9 @@ public:
 
 	void repartirCartas();
 
-	bool solicitarDecisiones(Jugador * it);
+	int solicitarDecision(Jugador * it, list<Carta*> comunitarias);
+
+	
 
 	char* seleccionarGanador(list<Deck*> manos);
 

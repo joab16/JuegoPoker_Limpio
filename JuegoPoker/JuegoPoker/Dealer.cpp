@@ -24,8 +24,12 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 	this->ciegaGrande = 2 * ciegaPequena;
 	this->numeroJugadores = numeroJugador;
 	for (int i = 0; i < numeroJugadores; i++) {
+		char integer_string[2];
+		sprintf(integer_string, "%d", i);
+		char* nombre = "Jugador";
+		strcat(nombre, integer_string);
 		dinero = rand() % 40000 + 10000;
-		jugadores.push_front(new Jugador("Alexa", dinero));
+		jugadores.push_front(new Jugador(nombre, dinero));
 	}
 	turnoActual = 0;
 	bote = 0;
@@ -46,29 +50,9 @@ void Dealer::repartirCartas()
 	}
 }
 
-bool Dealer::solicitarDecisiones(Jugador * it)
+int Dealer::solicitarDecision(Jugador * it,list<Carta*> comunitarias)
 {
-	bool desicion;
-	Jugadas jugada;
-	float calificacion = jugada.obtenerCalificacion(); 
-	if (it->tomarDecision(calificacion) == 0)
-	{
-		for (list<Jugador*>::iterator ite = jugadores.begin(); ite != jugadores.end(); ite++)
-		{
-			if (it == *ite)
-			{
-				list<Jugador*>::iterator tmp;
-				jugadores.erase(tmp);
-				ite = jugadores.end();
-			}
-		}
-		desicion = false;
-	}
-	else
-	{
-		desicion = true;
-	}
-	return desicion;
+	
 }
 
 char* Dealer::seleccionarGanador(list<Deck*> manos)
