@@ -12,13 +12,14 @@ private:
 	Deck * deck;
 	list<Carta*> comunitarias; // era list<Deck*>.
 	list<Jugador*> jugadores;
+	list<Jugador*> jugadoresActuales;
 	int bote = 0;
 	int ciegaPequenna;
 	int ciegaGrande;
-	int apuestaPequenna;
-	int apuestaGrande;
+	int apuestaActual;
 	int ronda = 1; //ronda que se va jugando.
 	int numeroJugadores;
+
 
 public:
 
@@ -31,15 +32,13 @@ public:
 
 	void repartirCartas();
 
-	int solicitarDecision(Jugador * it, list<Carta*> comunitarias);
-
-	
-
-	char* seleccionarGanador(list<Deck*> manos);
-
-	void repartirDinero();
+	int solicitarDecision(Jugador * it);
 
 	void llenarBote(int);
 
-	void revelar();
+	void rondaApuestas();
+
+	void finalizarTurno();
+
+	
 };

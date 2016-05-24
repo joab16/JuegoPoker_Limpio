@@ -25,9 +25,9 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 	this->numeroJugadores = numeroJugador;
 	for (int i = 0; i < numeroJugadores; i++) {
 		char integer_string[2];
-		sprintf(integer_string, "%d", i);
-		char* nombre = "Jugador";
-		strcat(nombre, integer_string);
+		sprintf_s(integer_string, "%d", i);
+		char nombre[8] = "Jugador";
+		strcat_s(nombre, integer_string);
 		dinero = rand() % 40000 + 10000;
 		jugadores.push_front(new Jugador(nombre, dinero));
 	}
@@ -50,27 +50,34 @@ void Dealer::repartirCartas()
 	}
 }
 
-int Dealer::solicitarDecision(Jugador * it,list<Carta*> comunitarias)
+int Dealer::solicitarDecision(Jugador * jugador)
 {
-	
+	return jugador->tomarDecision();
 }
 
-char* Dealer::seleccionarGanador(list<Deck*> manos)
-{
-	return nullptr;
-}
-
-void Dealer::repartirDinero()
-{
-}
 
 void Dealer::llenarBote(int apuesta)
 {
 	bote += apuesta;
 }
 
-void Dealer::revelar()
+void Dealer::rondaApuestas()
 {
-//return comunitarias;
+	for (list<Jugador*>::iterator jugador = jugadoresActuales.begin(); jugador != jugadoresActuales.end(); jugador++) {
+		int decisionJugador = solicitarDecision((*jugador));
+		if (decisionJugador == 0) {
+			jugadoresActuales.erase(jugador);
+		}
+		else {
+			if (decisionJugador > apuestaActual) {
+				apuestaActual = decisionJugador;
+			}
+			llenarBote(decisionJugador);
+		}
+	}
+}
+
+void Dealer::finalizarTurno()
+{
 }
 
