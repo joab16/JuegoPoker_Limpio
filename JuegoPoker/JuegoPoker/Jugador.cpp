@@ -13,7 +13,7 @@ Jugador::~Jugador()
 	delete tipo;
 }
 
-int Jugador::tomarDecision(float calificacion)
+int Jugador::tomarDecision()
 {
 	if (calificacion <= tipo->probabilidadMinimaRetiro)
 		decision = 1;
@@ -25,6 +25,16 @@ int Jugador::tomarDecision(float calificacion)
 	else
 		decision = 0;
 	return decision;
+}
+
+int Jugador::obtenerDineroRestante()
+{
+	retun this->dineroRestante;
+}
+
+void Jugador::establecerCalificacion()
+{
+
 }
 
 void Jugador::añadirAMano(Carta * carta)

@@ -8,21 +8,21 @@ class Dealer
 {
 	friend class PruebaDealer;
 private:
-	int turnoActual;
+	int turnoActual = 0;
 	Deck * deck;
 	list<Carta*> comunitarias; // era list<Deck*>.
 	list<Jugador*> jugadores;
+	list<Jugador*> jugadoresActuales;
 	int bote = 0;
 	int ciegaPequenna;
 	int ciegaGrande;
-	int apuestaPequenna;
-	int apuestaGrande;
-	int ronda = 1; //ronda que se va jugando.
+	int apuestaActual;
 	int numeroJugadores;
 
 public:
 
 	Dealer();
+	
 	Dealer(int, int);
 
 	~Dealer();
@@ -40,4 +40,8 @@ public:
 	void llenarBote(int);
 
 	void revelar();
+
+	void eliminarJugador();
+
+	void subirApuesta();
 };

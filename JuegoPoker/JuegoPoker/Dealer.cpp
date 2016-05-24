@@ -34,42 +34,35 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 
 void Dealer::repartirCartas()
 {
-
-	for (int i = 0; i < 5; i++) {
-		comunitarias.push_front(deck->obtenerCarta());
-
-	}
-	for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
+	if (turnoActual = 0)
 	{
-		(*it)->añadirAMano(deck->obtenerCarta());
-		(*it)->añadirAMano(deck->obtenerCarta());
-	}
-}
-
-bool Dealer::solicitarDecisiones(Jugador * it)
-{
-	bool desicion;
-	Jugadas jugada;
-	float calificacion = jugada.obtenerCalificacion(); 
-	if (it->tomarDecision(calificacion) == 0)
-	{
-		for (list<Jugador*>::iterator ite = jugadores.begin(); ite != jugadores.end(); ite++)
+		for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
 		{
-			if (it == *ite)
-			{
-				list<Jugador*>::iterator tmp;
-				jugadores.erase(tmp);
-				ite = jugadores.end();
-			}
+			(*it)->añadirAMano(deck->obtenerCarta());
+			(*it)->añadirAMano(deck->obtenerCarta());
 		}
-		desicion = false;
 	}
-	else
+	if (turnoActual = 1)
 	{
-		desicion = true;
+		for (int i = 0; i < 3; i++)
+			comunitarias.push_front(deck->obtenerCarta());
 	}
-	return desicion;
+	else if (turnoActual = 2)
+	{
+			comunitarias.push_front(deck->obtenerCarta());
+	}
+	else if (turnoActual = 3)
+	{
+			comunitarias.push_front(deck->obtenerCarta());
+	}
 }
+
+bool Dealer::solicitarDecisiones(Jugador * jugador)
+{
+	return jugador->tomarDecision();
+}
+
+
 
 char* Dealer::seleccionarGanador(list<Deck*> manos)
 {
@@ -88,5 +81,22 @@ void Dealer::llenarBote(int apuesta)
 void Dealer::revelar()
 {
 //return comunitarias;
+}
+
+void Dealer::eliminarJugador(Jugador *jugador)
+{
+	{
+		for (list<Jugador*>::iterator ite = jugadoresActuales.begin(); ite != jugadoresActuales.end(); ite++)
+		{
+			if (jugador == *ite)
+				jugadores.erase(ite);
+				ite = jugadores.end();
+			}
+		}
+	}
+}
+
+void Dealer::subirApuesta()
+{
 }
 
