@@ -8,10 +8,10 @@
 class PruebaDealer
 {
 public:
-	Dealer * d = new Dealer;
+	Dealer * d = new Dealer();
 	PruebaDealer();
 	~PruebaDealer();
-	void cartasJugadores(char * nombre, list<Carta*> mano);
+	void cartasJugadores(char *, list<Carta*>);
 	void cartasComunitarias();
 	void RepartirCartas();
 

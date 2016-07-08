@@ -4,8 +4,10 @@
 #include "Jugador.h"
 #include "Deck.h"
 
+using namespace std;
 class Dealer
 {
+	friend ostream & operator<<(ostream &, Dealer *);
 	friend class PruebaDealer;
 private:
 	int turnoActual;
@@ -17,8 +19,9 @@ private:
 	int ciegaGrande;
 	int apuestaPequenna;
 	int apuestaGrande;
-	int ronda = 1; //ronda que se va jugando.
+	int ronda; //ronda que se va jugando.
 	int numeroJugadores;
+	bool aumento;
 
 public:
 
@@ -31,13 +34,19 @@ public:
 
 	void repartirCartas();
 
-	bool solicitarDecisiones(Jugador * it);
+	bool solicitarDecisiones(Jugador *);
 
-	char* seleccionarGanador(list<Deck*> manos);
+	void eliminarJugador(Jugador * jugador);
+
+	char* seleccionarGanador(list<Deck*>);
 
 	void repartirDinero();
 
 	void llenarBote(int);
 
 	void revelar();
+	void imprimir(ostream &);
 };
+
+//ostream
+ostream & operator<<(ostream &, Dealer *);

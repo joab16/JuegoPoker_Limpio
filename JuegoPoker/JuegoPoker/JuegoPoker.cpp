@@ -13,6 +13,11 @@ int main()
 	PruebaDealer l;
 	l.RepartirCartas();
 
+	Dealer * d = new Dealer(1, 2);
+	d->repartirCartas();
+	cout << d;
+	delete d;
+
     return 0;
 }
 

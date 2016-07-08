@@ -1,43 +1,44 @@
 #pragma once
 
 #include "Deck.h"
-
+//cmabie los Deck[] mano por list<Carta *>
 class Jugadas
 {
 private:
 	int cantidadCartas;
-	float calificacion;
+	double calificacion;
 
 public:
 	Jugadas();
 
 	~Jugadas();
 
-	float establecerPorcentajeExito(Deck mano[]);
+	double establecerPorcentajeExito(list<Carta *>);
 
-	void establecerCalificacion(float);
+	void establecerCalificacion(double);
 
-	float compararJugadas(Deck mano1[], Deck mano2[]);
+	double compararJugadas(list<Carta *> , list<Carta *> );
 
-	int esFlorImperial(Deck mano[]);
+	int esFlorImperial(list<Carta *> );
 
-	int esEscaleraColor(Deck mano[]);
+	int esEscaleraColor(list<Carta *> );
 
-	int esPoker(Deck mano[]);
+	int esPoker(list<Carta *> );
 
-	int esFull(Deck mano[]);
+	int esFull(list<Carta *> );
 
-	int esColor(Deck mano[]);
+	int esColor(list<Carta *> );
 
-	int esEscalera(Deck mano[]);
+	int esEscalera(list<Carta *> );
 
-	int esTrio(Deck mano[]);
+	int esTrio(list<Carta *> );
 
-	int esDoblePareja(Deck mano[]);
+	int esDoblePareja(list<Carta *> );
 
-	int esPareja(Deck mano[]);
+	int esPareja(list<Carta *> );
 
-	int esCartaAlta(Deck mano[]);
+	int esCartaAlta(list<Carta *> );
 	
-	float obtenerCalificacion();
+	// ale
+	double obtenerCalificacion(list<Carta *>);
 };

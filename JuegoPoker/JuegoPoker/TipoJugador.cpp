@@ -3,18 +3,20 @@
 
 TipoJugador::TipoJugador()
 {
-}
-
-TipoJugador::TipoJugador(int, int, float)
-{
+	//estableci probablidad :)
+	probabilidadMinimaRetiro = (rand() % 10) / 10;
 }
 
 TipoJugador::~TipoJugador()
 {
 }
 
-int TipoJugador::tomarDecision(float)
+double TipoJugador::analizarProbabilidad(list<Deck*>&)
 {
-	return 0;
+	return 0.0;
 }
 
+list<Deck*> TipoJugador::encontrarMejorJugada(list<Deck*>&, list<Deck*>&)
+{
+	return list<Deck*>();
+}

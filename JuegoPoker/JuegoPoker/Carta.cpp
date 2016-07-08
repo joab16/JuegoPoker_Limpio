@@ -32,3 +32,10 @@ int Carta::getPalo()
 {
 	return this->palo;
 }
+
+//se añade el ostream
+ostream & operator<<(ostream & out, Carta * c)
+{
+	out << " Numero: " << c->getValor() << " Palo: " << c->getPalo();
+	return out;
+}

@@ -7,20 +7,18 @@ private:
 	int apuestaMinima;
 	int apuestaMaxima;
 	list<Deck> mejorJugada;
-	float probabilidadGane;
+	double probabilidadGane;
 
 public:
 	TipoJugador();
 
-	TipoJugador(int, int, float);
-
 	~TipoJugador();
 
-	float probabilidadMinimaRetiro;
+	double probabilidadMinimaRetiro;
 
-	int tomarDecision(float);
+//borre tomar decision, no se ocupaba
 
-	float analizarProbabilidad(list<Deck*> &);
+	double analizarProbabilidad(list<Deck*> &);
 
 	list<Deck*> encontrarMejorJugada(list<Deck*> &, list<Deck*> &);
 };

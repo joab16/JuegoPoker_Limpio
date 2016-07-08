@@ -9,9 +9,9 @@ Jugadas::~Jugadas()
 {
 }
 
-float Jugadas::establecerPorcentajeExito(Deck mano[])
+double Jugadas::establecerPorcentajeExito(/*ale*/ list<Carta *> mano)
 {
-	float porcentaje = 0;
+	double porcentaje = 0;
 
 	if (esFlorImperial(mano) == 1)
 	{
@@ -56,17 +56,18 @@ float Jugadas::establecerPorcentajeExito(Deck mano[])
 	return porcentaje;
 }
 
-void Jugadas::establecerCalificacion(float calificacion)
+//me parece que esta no es necesaria :o
+void Jugadas::establecerCalificacion(double calificacion)
 {
 	this -> calificacion = calificacion;
 }
 
-float Jugadas::compararJugadas(Deck mano1[], Deck mano2[])
+double Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
 {
 	return 0.0f;
 }
 
-int Jugadas::esFlorImperial(Deck mano[])
+int Jugadas::esFlorImperial(list<Carta *> mano)
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -75,52 +76,55 @@ int Jugadas::esFlorImperial(Deck mano[])
 	return 0;
 }
 
-int Jugadas::esEscaleraColor(Deck mano[])
+int Jugadas::esEscaleraColor(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esPoker(Deck mano[])
+int Jugadas::esPoker(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esFull(Deck mano[])
+int Jugadas::esFull(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esColor(Deck mano[])
+int Jugadas::esColor(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esEscalera(Deck mano[])
+int Jugadas::esEscalera(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esTrio(Deck mano[])
+int Jugadas::esTrio(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esDoblePareja(Deck mano[])
+int Jugadas::esDoblePareja(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esPareja(Deck mano[])
+int Jugadas::esPareja(list<Carta *> mano)
 {
 	return 0;
 }
 
-int Jugadas::esCartaAlta(Deck mano[])
+int Jugadas::esCartaAlta(list<Carta *> mano)
 {
 	return 0;
 }
 
-float Jugadas::obtenerCalificacion()
+//ale
+double Jugadas::obtenerCalificacion(list<Carta*> mano)
 {
-	return 0.0f;
+	return establecerPorcentajeExito(mano);
 }
+
+//cambié los deck mano[] por list<Carta *> porque usamos listas :)
