@@ -28,8 +28,6 @@ public:
 
 	int tomarDecision(float);
 
-	int obtenerDineroRestante();
-
 	void añadirAMano(Carta *);
 
 	list<Carta*> mano;

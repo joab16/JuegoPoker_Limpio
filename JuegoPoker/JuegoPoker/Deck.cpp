@@ -71,6 +71,6 @@ void Deck::revolverBaraja()
 void Deck::imprimir()
 {
 	for (list<Carta*>::iterator it = deck.begin(); it != deck.end(); ++it) {
-		cout << "La carta vale: " << this->(*it)->getValor() << endl;
+		cout << "La carta vale: " << (*it)->getValor() << endl;
 	}
 }
