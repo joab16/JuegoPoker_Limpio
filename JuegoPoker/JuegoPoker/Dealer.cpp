@@ -15,6 +15,7 @@ Dealer::Dealer(int ciegaPequenna, int numeroJugadores)
 Dealer::~Dealer()
 {
 	delete deck;
+	delete jugada;
 }
 
 void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
@@ -32,38 +33,47 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 	bote = 0;
 	aumento = false; //
 	ronda = 1;
-	repartirCartas();
+	//for (int i = 0; i < 5 && finalizar != true; ++i) //reparte las cartas las 5 rondas o hasta que quede 1 jugador
+	//{
+		repartirCartas();
+	/*}*/
 }
 
 void Dealer::repartirCartas()
 {
-	for (int i = 0; i < 5; i++) {
-		comunitarias.push_front(deck->obtenerCarta());
-	}
-	for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
+	if (jugadores.size() != 1) //verifica que no quede solo un jugador, sino finaliza el juego :o
 	{
-		if (ronda == 1)
-		{
-			(*it)->añadirAMano(deck->obtenerCarta());
-			(*it)->añadirAMano(deck->obtenerCarta());
+		for (int i = 0; i < 5; i++) {
+			comunitarias.push_front(deck->obtenerCarta());
 		}
-		else
+		for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
 		{
-			if (solicitarDecisiones(*it))
+			if (ronda == 1)
 			{
 				(*it)->añadirAMano(deck->obtenerCarta());
+				(*it)->añadirAMano(deck->obtenerCarta());
+			}
+			else
+			{
+				if (solicitarDecisiones(*it))
+				{
+					(*it)->añadirAMano(deck->obtenerCarta());
+				}
 			}
 		}
+		++ronda;
+		aumento = false; // termina esa ronda y comienza de nuevo el aumento;
 	}
-	++ronda;
-	aumento = false; // termina esa ronda y comienza de nuevo el aumento;
+	else
+	{
+		finalizar();
+	}
 }
 
 bool Dealer::solicitarDecisiones(Jugador * it)
 { //cambio esto porque en ningun monmento se le manda la mano para ver que calificacion se tiene :o
 	bool seguir;
-	Jugadas jugada;
-	double calificacion = jugada.obtenerCalificacion(it->mano);
+	double calificacion = jugada->obtenerCalificacion(it->mano);
 	int decision = it->tomarDecision(calificacion);
 	if (decision == 0) //decide retirarse
 	{
@@ -104,13 +114,38 @@ void Dealer::eliminarJugador(Jugador * jugador)
 		jugadores.erase(ite);
 	}
 }
-char* Dealer::seleccionarGanador(list<Deck*> manos)
+
+// cambie de char * a Jugador * para que sea facil all repartir el dinero y asi. el parametro que recibia no servia, en mi opinion xd
+Jugador * Dealer::seleccionarGanador()
 {
-	return nullptr;
+	Jugador * ganador = NULL;
+	list<Jugador*>::iterator jugador1 = jugadores.begin();
+	list<Jugador*>::iterator jugador2 = ++jugador1;
+	
+	while (jugador1 != jugadores.end())
+	{
+		if (jugador2 != jugadores.end())
+		{
+			if (jugada->compararJugadas((*jugador1)->mano, (*jugador2)->mano) == 1)
+			{
+				ganador = (*jugador1);
+				++jugador2;
+			}
+			else
+			{
+				ganador = (*jugador2);
+				jugador1 = ++jugador2;
+			}
+		}
+	}
+
+	return ganador;
 }
 
-void Dealer::repartirDinero()
+//se reparte dinero de una vez al ganador
+void Dealer::repartirDinero(Jugador * ganador)
 {
+	ganador->dineroRestante = bote;
 }
 
 void Dealer::llenarBote(int apuesta)
@@ -133,6 +168,15 @@ void Dealer::imprimir(ostream & out)
 			out << (*ite);
 		}
 		out << endl;
+	}
+}
+
+void Dealer::finalizar()
+{
+	Jugador * ganador = seleccionarGanador();
+	if (ganador != NULL)
+	{
+		repartirDinero(ganador);
 	}
 }
 

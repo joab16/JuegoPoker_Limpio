@@ -17,7 +17,7 @@ public:
 
 	void establecerCalificacion(double);
 
-	double compararJugadas(list<Carta *> , list<Carta *> );
+	int compararJugadas(list<Carta *> , list<Carta *> );
 
 	int esFlorImperial(list<Carta *> );
 

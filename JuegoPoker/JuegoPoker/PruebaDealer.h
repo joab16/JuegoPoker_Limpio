@@ -1,20 +1,16 @@
 #pragma once
 
-#include "Deck.h"
 #include "Dealer.h"
-#include "Jugador.h"
-#include "Carta.h"
 
-class PruebaDealer
+class PruebaDealer : public Dealer
 {
-public:
-	Dealer * d = new Dealer();
-	PruebaDealer();
-	~PruebaDealer();
+private:
 	void cartasJugadores(char *, list<Carta*>);
 	void cartasComunitarias();
-	void RepartirCartas();
+	void repartir();
 
-	
+public:
+	PruebaDealer();
+	virtual ~PruebaDealer();
 };
 

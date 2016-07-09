@@ -5,6 +5,7 @@
 #include "Deck.h"
 
 using namespace std;
+class Jugador;
 class Dealer
 {
 	friend ostream & operator<<(ostream &, Dealer *);
@@ -12,8 +13,9 @@ class Dealer
 private:
 	int turnoActual;
 	Deck * deck;
+	Jugadas * jugada; //para usarlo en tomardecision y seleccionarganador
 	list<Carta*> comunitarias; // era list<Deck*>.
-	list<Jugador*> jugadores;
+	list<Jugador *> jugadores;
 	int bote = 0;
 	int ciegaPequenna;
 	int ciegaGrande;
@@ -23,6 +25,22 @@ private:
 	int numeroJugadores;
 	bool aumento;
 
+	bool solicitarDecisiones(Jugador *);
+
+	void eliminarJugador(Jugador * jugador);
+
+	Jugador * seleccionarGanador();
+
+	void repartirDinero(Jugador *);
+
+	void llenarBote(int);
+
+	void revelar();
+
+	void imprimir(ostream &);
+
+	void finalizar();
+
 public:
 
 	Dealer();
@@ -31,21 +49,7 @@ public:
 	~Dealer();
 
 	void inicializarJuego(int, int);
-
 	void repartirCartas();
-
-	bool solicitarDecisiones(Jugador *);
-
-	void eliminarJugador(Jugador * jugador);
-
-	char* seleccionarGanador(list<Deck*>);
-
-	void repartirDinero();
-
-	void llenarBote(int);
-
-	void revelar();
-	void imprimir(ostream &);
 };
 
 //ostream

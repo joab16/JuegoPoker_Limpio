@@ -62,9 +62,10 @@ void Jugadas::establecerCalificacion(double calificacion)
 	this -> calificacion = calificacion;
 }
 
-double Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
+// cambie valor de retorno de double a int para que devuelva quien es mayor, 1 o 2,
+int Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
 {
-	return 0.0f;
+	return 0.0;
 }
 
 int Jugadas::esFlorImperial(list<Carta *> mano)

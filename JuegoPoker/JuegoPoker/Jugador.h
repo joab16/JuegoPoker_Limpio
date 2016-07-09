@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "TipoJugador.h"
-#include "Carta.h"
+#include "Dealer.h"
 
 using namespace std;
 
@@ -10,6 +10,8 @@ class TipoJugador;
 
 class Jugador
 {
+	//que jugador sea amigo de Dealer para que pueda usar todas las variables ya qu es el que lo crea y hace otras gestiones xd
+	friend class Dealer;
 private:
 
 	int apuesta;
