@@ -9,47 +9,47 @@ Jugadas::~Jugadas()
 {
 }
 
-float Jugadas::establecerPorcentajeExito(Deck mano[])
+float Jugadas::establecerPorcentajeExito(list <Carta *> comunitarias, list <Carta *> mano)
 {
 	float porcentaje = 0;
 
-	if (esFlorImperial(mano) == 1)
+	if (esFlorImperial(comunitarias, mano) == 1)
 	{
 		porcentaje = 1.0f;
 	}
-	else if (esEscaleraColor(mano) == 1)
+	else if (esEscaleraColor(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.9f;
 	}
-	else if(esPoker(mano) == 1)
+	else if(esPoker(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.8f;
 	}
-	else if (esFull(mano) == 1)
+	else if (esFull(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.7f;
 	}
-	else if (esColor(mano) == 1)
+	else if (esColor(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.6f;
 	}
-	else if (esEscalera(mano) == 1)
+	else if (esEscalera(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.5f;
 	}
-	else if (esTrio(mano) == 1)
+	else if (esTrio(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.4f;
 	}
-	else if (esDoblePareja(mano) == 1)
+	else if (esDoblePareja(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.3f;
 	}
-	else if (esPareja(mano) == 1)
+	else if (esPareja(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.2f;
 	}
-	else if (esCartaAlta(mano) == 1)
+	else if (esCartaAlta(comunitarias, mano) == 1)
 	{
 		porcentaje = 0.1f;
 	}
@@ -61,66 +61,292 @@ void Jugadas::establecerCalificacion(float calificacion)
 	this -> calificacion = calificacion;
 }
 
-float Jugadas::compararJugadas(Deck mano1[], Deck mano2[])
+float Jugadas::compararJugadas(list <Carta *> comunitarias, list <Carta *> mano1, list <Carta *> mano2)
 {
+	list<Carta *> cartasJugador1 = ordenaLista(comunitarias, mano1);
+	list<Carta *> cartasJugador2;
 	return 0.0f;
 }
 
-int Jugadas::esFlorImperial(Deck mano[])
+int Jugadas::esFlorImperial(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	for (int i = 0; i < 8; i++)
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
 	{
-		//mano[1].
+		if (((*it)->getValor() + 1 == (*next(it, 1))->getValor()))
+		{
+			if ((*it)->getPalo() == (*next(it, 1))->getPalo())
+			{
+				++banderaResultado;
+			}
+		}
+		else
+		{
+			if ((*it)->getValor() != (*next(it, 1))->getValor())
+			{
+				banderaResultado = 0;
+			}
+		}
+		if ((banderaResultado == 4) && ((*next(it, 1))->getValor() != 14))
+		{
+			banderaResultado = 0;
+		}
 	}
-	return 0;
+	if (banderaResultado == 4)
+	{		
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esEscaleraColor(Deck mano[])
+int Jugadas::esEscaleraColor(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if (((*it)->getValor() + 1 == (*next(it, 1))->getValor()))
+		{
+			if ((*it)->getPalo() == (*next(it, 1))->getPalo())
+		    {
+			   ++banderaResultado;
+		    }
+		}
+		else
+		{
+			if ((*it)->getValor() != (*next(it, 1))->getValor())
+			{
+				banderaResultado = 0;
+			}
+		}
+	}
+	if (banderaResultado == 4)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esPoker(Deck mano[])
+int Jugadas::esPoker(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if ((*it)->getValor() == (*next(it, 1))->getValor())
+		{
+			++banderaResultado;
+		}
+		else
+		{
+			banderaResultado = 0;
+		}
+	}
+	if (banderaResultado == 3)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esFull(Deck mano[])
+int Jugadas::esFull(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int banderaPareja = 0;
+	int banderaTrio = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{		
+		if (((*it)->getValor() == (*next(it, 1))->getValor()))
+		{
+			++banderaResultado;
+		}
+		else if (banderaResultado == 2)
+		{
+			banderaPareja = 1;
+			banderaResultado = 0;
+		}
+		else if (banderaResultado == 3)
+		{
+			banderaTrio = 1;
+			banderaResultado = 0;
+		}
+	}
+	if (banderaTrio == 1 && banderaPareja == 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+	
 }
 
-int Jugadas::esColor(Deck mano[])
+int Jugadas::esColor(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if (((*it)->getPalo() == (*next(it, 1))->getPalo()))
+		{
+			++banderaResultado;
+		}
+	}
+	if (banderaResultado >= 5)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esEscalera(Deck mano[])
+int Jugadas::esEscalera(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if (((*it)->getValor() + 1 == (*next(it, 1))->getValor()))
+		{
+			++banderaResultado;
+		}
+		else
+		{
+			if ((*it)->getValor() != (*next(it, 1))->getValor())
+			{
+				banderaResultado = 0;
+			}
+		}
+	}
+	if (banderaResultado == 4)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esTrio(Deck mano[])
+int Jugadas::esTrio(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if (((*it)->getValor() == (*next(it, 1))->getValor()))
+		{			
+			++banderaResultado;
+		}
+	}
+	if (banderaResultado > 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}	
 }
 
-int Jugadas::esDoblePareja(Deck mano[])
+int Jugadas::esDoblePareja(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+	int primerValor = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if (((*it)->getValor() == (*next(it, 1))->getValor()) && (*it)->getValor != primerValor)
+		{
+			primerValor = (*it)->getValor;
+			++banderaResultado;
+		}
+	}
+	if (banderaResultado > 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Jugadas::esPareja(Deck mano[])
+int Jugadas::esPareja(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+
+	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
+	{
+		if ((*it)->getValor() == (*next(it, 1))->getValor())
+		{
+			banderaResultado = 1;
+		}
+	}
+	/*
+	for (list<Carta *>::iterator it = cartasTotales.begin(); it != cartasTotales.end(); ++it)
+	{
+		list<Carta *>::iterator it2 = it;
+		++it2;
+		for (; it2 != cartasTotales.end(); ++it2)
+		{
+			if ((*it)->getValor() == (*it2)->getValor())
+			{
+				banderaResultado = 1;
+				break;
+			}
+		}
+		if (banderaResultado == 1)
+		{
+			break;
+		}
+	}*/
+	
+	return banderaResultado;
 }
 
-int Jugadas::esCartaAlta(Deck mano[])
+int Jugadas::esCartaAlta(list <Carta *> comunitarias, list <Carta *> mano)
 {
 	return 0;
 }
 
 float Jugadas::obtenerCalificacion()
 {
-	return 0.0f;
+	return this->calificacion;
+}
+
+list<Carta*> Jugadas::ordenaLista(list<Carta*> comunitarias, list<Carta*> mano)
+{
+	list <Carta *> cartasTotales = comunitarias;
+	cartasTotales.insert(cartasTotales.end(), mano.begin(), mano.end());
+	cartasTotales.sort([](Carta * a, Carta * b) { return a->getValor() < b->getValor(); });
+	return cartasTotales;
 }

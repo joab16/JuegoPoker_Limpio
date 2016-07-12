@@ -5,6 +5,7 @@
 #include "Deck.h"
 #include "Carta.h"
 #include "PruebaDealer.h"
+#include "PruebaJugadas.h"
 
 int main()
 {
@@ -12,6 +13,9 @@ int main()
 
 	PruebaDealer l;
 	l.RepartirCartas();
+
+	PruebaJugadas j;
+	j.validaPareja();
 
     return 0;
 }

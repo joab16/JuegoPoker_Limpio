@@ -1,5 +1,5 @@
 #pragma once
-
+#include "stdafx.h"
 #include "Deck.h"
 
 class Jugadas
@@ -13,31 +13,33 @@ public:
 
 	~Jugadas();
 
-	float establecerPorcentajeExito(Deck mano[]);
+	float establecerPorcentajeExito(list <Carta *>, list <Carta *>);
 
 	void establecerCalificacion(float);
 
-	float compararJugadas(Deck mano1[], Deck mano2[]);
+	float compararJugadas(list<Carta *>, list <Carta *>, list <Carta *>);
 
-	int esFlorImperial(Deck mano[]);
+	int esFlorImperial(list <Carta *>, list <Carta *>);
 
-	int esEscaleraColor(Deck mano[]);
+	int esEscaleraColor(list <Carta *>, list <Carta *>);
 
-	int esPoker(Deck mano[]);
+	int esPoker(list <Carta *>, list <Carta *>);
 
-	int esFull(Deck mano[]);
+	int esFull(list <Carta *>, list <Carta *>);
 
-	int esColor(Deck mano[]);
+	int esColor(list <Carta *>, list <Carta *>);
 
-	int esEscalera(Deck mano[]);
+	int esEscalera(list <Carta *>, list <Carta *>);
 
-	int esTrio(Deck mano[]);
+	int esTrio(list <Carta *>, list <Carta *>);
 
-	int esDoblePareja(Deck mano[]);
+	int esDoblePareja(list <Carta *>, list <Carta *>);
 
-	int esPareja(Deck mano[]);
+	int esPareja(list <Carta *>, list <Carta *>);
 
-	int esCartaAlta(Deck mano[]);
+	int esCartaAlta(list <Carta *>, list <Carta *>);
 	
 	float obtenerCalificacion();
+
+	list <Carta *> ordenaLista(list <Carta *>, list <Carta *>);
 };

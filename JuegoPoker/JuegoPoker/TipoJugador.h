@@ -1,12 +1,13 @@
 #pragma once
 #include "Jugador.h"
-#include "Deck.h"
+#include "Carta.h"
+#include "Jugadas.h"
 
 class TipoJugador {
 private:
 	int apuestaMinima;
 	int apuestaMaxima;
-	list<Deck> mejorJugada;
+	list<Carta> mejorJugada;
 	float probabilidadGane;
 
 public:
@@ -20,7 +21,7 @@ public:
 
 	int tomarDecision(float);
 
-	float analizarProbabilidad(list<Deck*> &);
+	float analizarProbabilidad(list<Carta*> &, list<Carta*> &);
 
-	list<Deck*> encontrarMejorJugada(list<Deck*> &, list<Deck*> &);
+	list<Carta*> encontrarMejorJugada(list<Carta*> &, list<Carta*> &);
 };

@@ -7,6 +7,7 @@
 class Dealer
 {
 	friend class PruebaDealer;
+	friend class PruebaJugadas;
 private:
 	int turnoActual;
 	Deck * deck;
