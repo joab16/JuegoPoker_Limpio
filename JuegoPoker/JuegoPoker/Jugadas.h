@@ -17,11 +17,11 @@ public:
 	Jugadas();
 	~Jugadas();
 
-	float establecerPorcentajeExito(list <Carta *>, list <Carta *>);
+	double establecerPorcentajeExito(list <Carta *>, list <Carta *>);
 
 	void establecerCalificacion(double);
 
-	float compararJugadas(list<Carta *>, list <Carta *>, list <Carta *>);
+	int compararJugadas(list<Carta *>, list <Carta *>/*, list <Carta *>*/);
 
 	int esFlorImperial(list <Carta *>, list <Carta *>);
 
@@ -43,7 +43,7 @@ public:
 
 	int esCartaAlta(list <Carta *>, list <Carta *>);
 	
-	float obtenerCalificacion();
+	double obtenerCalificacion(list<Carta*>);
 
 	list <Carta *> ordenaLista(list <Carta *>, list <Carta *>);
 };

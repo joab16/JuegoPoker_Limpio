@@ -14,6 +14,7 @@ PruebaJugadas::~PruebaJugadas()
 
 void PruebaJugadas::validaPareja()
 {	
+	/*
 	d->deck = new Deck();
 	d->repartirCartas();
 	list<Jugador*> prueba;
@@ -25,5 +26,5 @@ void PruebaJugadas::validaPareja()
 	for (list<Jugador*>::iterator it = d->jugadores.begin(); it != d->jugadores.end(); it++)
 	{
 		cout << "Resultado " << (*it)->nombre << ": " << pruebaJugadas.esPareja(d->comunitarias, (*it)->mano) << endl;
-	}	
+	}*/	
 }

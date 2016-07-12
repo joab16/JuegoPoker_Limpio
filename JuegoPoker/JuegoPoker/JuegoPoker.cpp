@@ -22,8 +22,8 @@ int main()
 
 	iniciarJuego();
 	
-	PruebaJugadas j;
-	j.validaPareja();
+	/*PruebaJugadas j;
+	j.validaPareja();*/
 
     return 0;
 }

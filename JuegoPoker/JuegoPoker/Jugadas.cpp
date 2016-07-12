@@ -19,7 +19,7 @@ Jugadas::~Jugadas()
 * @brief Establece el porcentaje de exito
 * @param mano list<Carta*>
 */
-double Jugadas::establecerPorcentajeExito(/*ale*/ list<Carta*> mano)
+double Jugadas::establecerPorcentajeExito(list<Carta*> comunitarias, list<Carta*> mano)
 {
 	double porcentaje = 0;
 
@@ -79,11 +79,11 @@ void Jugadas::establecerCalificacion(double calificacion)
 * @param mano2 list<Carta*>
 * @return mayor int
 */
-int Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
+int Jugadas::compararJugadas(list<Carta *> comunitarias, list<Carta *> mano1/*, list<Carta *> mano2*/)
 {
 	list<Carta *> cartasJugador1 = ordenaLista(comunitarias, mano1);
 	list<Carta *> cartasJugador2;
-	return 0.0f;
+	return 0;
 }
 
 /**
@@ -91,7 +91,7 @@ int Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
 * @param mano list<Carta*>
 * @return es int
 */
-int Jugadas::esFlorImperial(list<Carta *> mano)
+int Jugadas::esFlorImperial(list<Carta *> comunitarias, list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -133,7 +133,7 @@ int Jugadas::esFlorImperial(list<Carta *> mano)
 * @param mano list<Carta*>
 * @return es int
 */
-int Jugadas::esEscaleraColor(list<Carta *> mano)
+int Jugadas::esEscaleraColor(list<Carta *> comunitarias, list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -171,7 +171,7 @@ int Jugadas::esEscaleraColor(list<Carta *> mano)
 * @param mano list<Carta*>
 * @return es int
 */
-int Jugadas::esPoker(list<Carta *> mano)
+int Jugadas::esPoker(list<Carta *> comunitarias, list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -316,9 +316,9 @@ int Jugadas::esDoblePareja(list <Carta *> comunitarias, list <Carta *> mano)
 
 	for (list<Carta *>::iterator it = cartasTotales.begin(); next(it, 1) != cartasTotales.end(); ++it)
 	{
-		if (((*it)->getValor() == (*next(it, 1))->getValor()) && (*it)->getValor != primerValor)
+		if (((*it)->getValor() == (*next(it, 1))->getValor()) && (*it)->getValor() != primerValor)
 		{
-			primerValor = (*it)->getValor;
+			primerValor = (*it)->getValor();
 			++banderaResultado;
 		}
 	}
