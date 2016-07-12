@@ -150,6 +150,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Jugadas.h" />
     <ClInclude Include="Jugador.h" />
+    <ClInclude Include="PruebaCarta.h" />
     <ClInclude Include="PruebaDealer.h" />
     <ClInclude Include="PruebaJugadas.h" />
     <ClInclude Include="stdafx.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="JuegoPoker.cpp" />
     <ClCompile Include="Jugadas.cpp" />
     <ClCompile Include="Jugador.cpp" />
+    <ClCompile Include="PruebaCarta.cpp" />
     <ClCompile Include="PruebaDealer.cpp" />
     <ClCompile Include="PruebaJugadas.cpp" />
     <ClCompile Include="stdafx.cpp">

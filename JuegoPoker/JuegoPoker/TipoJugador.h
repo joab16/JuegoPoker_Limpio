@@ -1,25 +1,31 @@
+/**
+* @class TipoJugador
+* @brief Tipo de jugador del jugador.
+*/
+
 #pragma once
 #include "Jugador.h"
 #include "Carta.h"
 #include "Jugadas.h"
 
+#include "Deck.h"
+
 class TipoJugador {
+
 private:
-	int apuestaMinima;
-	int apuestaMaxima;
-	list<Carta> mejorJugada;
-	float probabilidadGane;
+	int apuestaMinima;//no se sa
+	int apuestaMaxima;//no se usa
+	list<Deck> mejorJugada; //no se ha usado
+	double probabilidadGane; //no se ha usado
 
 public:
 	TipoJugador();
 
-	TipoJugador(int, int, float);
-
 	~TipoJugador();
 
-	float probabilidadMinimaRetiro;
+	double probabilidadMinimaRetiro;  /*!< varible double probabilidadMinimaRetiro */
 
-	int tomarDecision(float);
+//borre tomar decision, no se ocupaba
 
 	float analizarProbabilidad(list<Carta*> &, list<Carta*> &);
 

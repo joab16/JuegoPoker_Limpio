@@ -1,21 +1,31 @@
 #include "stdafx.h"
 #include "TipoJugador.h"
 
+/**
+* @brief Constructor.
+*/
 TipoJugador::TipoJugador()
 {
+	//estableci probablidad :)
+	probabilidadMinimaRetiro = (rand() % 10) / 10;
 }
 
-TipoJugador::TipoJugador(int, int, float)
-{
-}
-
+/**
+* @brief Destructor
+*/
 TipoJugador::~TipoJugador()
 {
 }
 
-int TipoJugador::tomarDecision(float)
+//no se que hace
+double TipoJugador::analizarProbabilidad(list<Deck*>&)
 {
-	return 0;
+	return 0.0;
+}
+//no se que hace
+list<Deck*> TipoJugador::encontrarMejorJugada(list<Deck*>&, list<Deck*>&)
+{
+	return list<Deck*>();
 }
 
 float TipoJugador::analizarProbabilidad(list<Carta*>&comunitarias, list<Carta*>&mano)

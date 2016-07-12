@@ -1,21 +1,25 @@
+/**
+* @class Jugadas
+* @brief Define jugadas del poker y establece calificaciones
+*/
+
 #pragma once
 #include "stdafx.h"
 #include "Deck.h"
-
+//cmabie los Deck[] mano por list<Carta *>
 class Jugadas
 {
 private:
-	int cantidadCartas;
-	float calificacion;
+	int cantidadCartas; /*!< varible integer cantidadCartas*/
+	double calificacion; /*!< varible double calificacion*/
 
 public:
 	Jugadas();
-
 	~Jugadas();
 
 	float establecerPorcentajeExito(list <Carta *>, list <Carta *>);
 
-	void establecerCalificacion(float);
+	void establecerCalificacion(double);
 
 	float compararJugadas(list<Carta *>, list <Carta *>, list <Carta *>);
 

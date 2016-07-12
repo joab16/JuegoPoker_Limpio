@@ -1,74 +1,97 @@
 #include "stdafx.h"
 #include "Jugadas.h"
 
+/**
+* @brief Constructor
+*/
 Jugadas::Jugadas()
 {
 }
 
+/**
+* @brief Destructor
+*/
 Jugadas::~Jugadas()
 {
 }
 
-float Jugadas::establecerPorcentajeExito(list <Carta *> comunitarias, list <Carta *> mano)
+/**
+* @brief Establece el porcentaje de exito
+* @param mano list<Carta*>
+*/
+double Jugadas::establecerPorcentajeExito(/*ale*/ list<Carta*> mano)
 {
-	float porcentaje = 0;
+	double porcentaje = 0;
 
 	if (esFlorImperial(comunitarias, mano) == 1)
 	{
-		porcentaje = 1.0f;
+		porcentaje = 1.0;
 	}
 	else if (esEscaleraColor(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.9f;
+		porcentaje = 0.9;
 	}
 	else if(esPoker(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.8f;
+		porcentaje = 0.8;
 	}
 	else if (esFull(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.7f;
+		porcentaje = 0.7;
 	}
 	else if (esColor(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.6f;
+		porcentaje = 0.6;
 	}
 	else if (esEscalera(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.5f;
+		porcentaje = 0.5;
 	}
 	else if (esTrio(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.4f;
+		porcentaje = 0.4;
 	}
 	else if (esDoblePareja(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.3f;
+		porcentaje = 0.3;
 	}
 	else if (esPareja(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.2f;
+		porcentaje = 0.2;
 	}
 	else if (esCartaAlta(comunitarias, mano) == 1)
 	{
-		porcentaje = 0.1f;
+		porcentaje = 0.1;
 	}
 	return porcentaje;
 }
 
-void Jugadas::establecerCalificacion(float calificacion)
+//me parece que esta no es necesaria :o
+void Jugadas::establecerCalificacion(double calificacion)
 {
 	this -> calificacion = calificacion;
 }
 
-float Jugadas::compararJugadas(list <Carta *> comunitarias, list <Carta *> mano1, list <Carta *> mano2)
+// cambie valor de retorno de double a int para que devuelva quien es mayor, 1 o 2,
+/**
+* @brief Compara manos de dos jugadores
+* @param mano1 list<Carta*>
+* @param mano2 list<Carta*>
+* @return mayor int
+*/
+int Jugadas::compararJugadas(list<Carta *> mano1, list<Carta *> mano2)
 {
 	list<Carta *> cartasJugador1 = ordenaLista(comunitarias, mano1);
 	list<Carta *> cartasJugador2;
 	return 0.0f;
 }
 
-int Jugadas::esFlorImperial(list <Carta *> comunitarias, list <Carta *> mano)
+/**
+* @brief Verifica si es Flor Imperial o es posible que lo haga
+* @param mano list<Carta*>
+* @return es int
+*/
+int Jugadas::esFlorImperial(list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -105,7 +128,12 @@ int Jugadas::esFlorImperial(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 }
 
-int Jugadas::esEscaleraColor(list <Carta *> comunitarias, list <Carta *> mano)
+/**
+* @brief Verifica si es Escalera de Color o es posible que lo haga
+* @param mano list<Carta*>
+* @return es int
+*/
+int Jugadas::esEscaleraColor(list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -138,7 +166,12 @@ int Jugadas::esEscaleraColor(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 }
 
-int Jugadas::esPoker(list <Carta *> comunitarias, list <Carta *> mano)
+/**
+* @brief Verifica si es Poker o es posible que lo haga
+* @param mano list<Carta*>
+* @return es int
+*/
+int Jugadas::esPoker(list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
 	int banderaResultado = 0;
@@ -338,7 +371,14 @@ int Jugadas::esCartaAlta(list <Carta *> comunitarias, list <Carta *> mano)
 	return 0;
 }
 
-float Jugadas::obtenerCalificacion()
+//NUEVO
+
+/**
+* @brief Obtiene calificacion de una mano
+* @param mano list<Carta*>
+* @return calificacion double
+*/
+double Jugadas::obtenerCalificacion(list<Carta*> mano)
 {
 	return this->calificacion;
 }
@@ -350,3 +390,5 @@ list<Carta*> Jugadas::ordenaLista(list<Carta*> comunitarias, list<Carta*> mano)
 	cartasTotales.sort([](Carta * a, Carta * b) { return a->getValor() < b->getValor(); });
 	return cartasTotales;
 }
+
+//cambié los deck mano[] por list<Carta *> porque usamos listas :)

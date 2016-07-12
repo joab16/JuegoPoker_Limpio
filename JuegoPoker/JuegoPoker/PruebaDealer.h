@@ -1,20 +1,23 @@
+/**
+* @class PruebaDealer
+* @brief Pruebas de dealer. Hija de Dealer.
+*/
+
 #pragma once
 
-#include "Deck.h"
 #include "Dealer.h"
-#include "Jugador.h"
-#include "Carta.h"
 
-class PruebaDealer
+class PruebaDealer : public Dealer
 {
-public:
-	Dealer * d = new Dealer;
-	PruebaDealer();
-	~PruebaDealer();
-	void cartasJugadores(char * nombre, list<Carta*> mano);
-	void cartasComunitarias();
-	void RepartirCartas();
 
-	
+private:
+	void cartasJugadores(char *, list<Carta*>);
+	void cartasComunitarias();
+	void repartir();
+
+public:
+	PruebaDealer();
+	virtual ~PruebaDealer();
+
 };
 

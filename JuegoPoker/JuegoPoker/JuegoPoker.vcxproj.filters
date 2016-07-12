@@ -48,6 +48,9 @@
     <ClInclude Include="PruebaJugadas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PruebaCarta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PruebaJugadas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PruebaCarta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

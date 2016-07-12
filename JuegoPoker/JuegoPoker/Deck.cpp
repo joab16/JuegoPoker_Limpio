@@ -9,7 +9,7 @@ Deck::Deck()
 	int numero;
 	int palo;
 
-	for (int i = 1; i <= 16; ++i) {
+	for (int i = 1; i <= 13; ++i) {
 		for (int j = 1; j <= 4; ++j) {
 			numero = i;
 			palo = j;
@@ -28,6 +28,10 @@ Deck::~Deck()
 	delete carta;
 }
 
+/**
+* @brief Devuelve la primera carta y la elimina del deck.
+* @return carta Carta *
+*/
 Carta * Deck::obtenerCarta()
 {
 	list<Carta*>::iterator it = deck.begin();
@@ -39,10 +43,12 @@ Carta * Deck::obtenerCarta()
 	}
 	else
 		tmp = nullptr;
-	return tmp; // Devuelve la primera carta y la elimina del deck.
+	return tmp;
 }
 
-//Tomado del ejemplo en clase del profesor Ruben Jimenez.
+/**
+* @brief Tomado del ejemplo en clase del profesor Ruben Jimenez. Revuelve la baraja.
+*/
 void Deck::revolverBaraja()
 {
 
@@ -50,8 +56,8 @@ void Deck::revolverBaraja()
 		list<Carta*>::iterator it1 = deck.begin();
 		list<Carta*>::iterator it2 = deck.begin();
 
-		int limite1 = rand() % 54;
-		int limite2 = rand() % 54;
+		int limite1 = rand() % 52;
+		int limite2 = rand() % 52;
 
 		for (int i = 0; i < limite1; i++) {
 			++it1;
@@ -68,9 +74,12 @@ void Deck::revolverBaraja()
 
 }
 
+/**
+* @brief Imprime carta.
+*/
 void Deck::imprimir()
 {
 	for (list<Carta*>::iterator it = deck.begin(); it != deck.end(); ++it) {
-		cout << "La carta vale: " << (*it)->getValor() << endl;
+		cout << "La carta es: " << (*it)->getValor() << endl;
 	}
 }
