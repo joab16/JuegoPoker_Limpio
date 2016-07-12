@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "PruebaCarta.h"
 
-
-PruebaCarta::PruebaCarta(int v, int p) : Carta(v, p)
+/**
+* @brief Constructor
+* @param numero integer
+* @param palo integer
+*/
+PruebaCarta::PruebaCarta(int numero, int palo) : Carta(numero, palo)
 {
-	cout << "Valor enviado: " << v << " Numero de palo enviado: " << p << endl;
-	Carta * carta = new Carta(v, p);
-	cout << "Carta creada: " << carta << endl << endl;
-	delete carta;
+	cout << "Valor enviado: " << numero << " Numero de palo enviado: " << palo << endl;
 }
 
 PruebaCarta::~PruebaCarta()

@@ -11,7 +11,7 @@
 #include <tchar.h>
 
 // TODO: reference additional headers your program requires here
-#include <list>
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <list> //lista
+#include <iostream> //cout
+#include <cstdlib> //srand
+#include <ctime> //time

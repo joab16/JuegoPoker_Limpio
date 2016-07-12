@@ -1,3 +1,8 @@
+/**
+* @class Jugadas
+* @brief Define jugadas del poker y establece calificaciones
+*/
+
 #pragma once
 
 #include "Deck.h"
@@ -5,12 +10,11 @@
 class Jugadas
 {
 private:
-	int cantidadCartas;
-	double calificacion;
+	int cantidadCartas; /*!< varible integer cantidadCartas*/
+	double calificacion; /*!< varible double calificacion*/
 
 public:
 	Jugadas();
-
 	~Jugadas();
 
 	double establecerPorcentajeExito(list<Carta *>);
@@ -39,6 +43,5 @@ public:
 
 	int esCartaAlta(list<Carta *> );
 	
-	// ale
 	double obtenerCalificacion(list<Carta *>);
 };

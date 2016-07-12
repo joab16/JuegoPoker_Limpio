@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "PruebaDealer.h"
-using namespace std;
 
+/**
+* @brief Constructor.
+
+*/
 PruebaDealer::PruebaDealer() : Dealer()
 {
 	deck = new Deck();
@@ -23,12 +26,17 @@ PruebaDealer::PruebaDealer() : Dealer()
 	repartir();
 }
 
-
+/**
+* @brief Destructor
+*/
 PruebaDealer::~PruebaDealer()
 {
 }
 
-//solo borre coss que no se ocupban y le puse ms texto :)
+//solo borre coss que no se ocupban y le puse mas texto :)
+/**
+* @brief Reparte las cartas
+*/
 void PruebaDealer::PruebaDealer::repartir()
 {
 	cout << "Se reparten las cartas...\n\n";
@@ -36,12 +44,17 @@ void PruebaDealer::PruebaDealer::repartir()
 
 	for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
 	{
-		cartasJugadores((*it)->nombre, (*it)->mano);
+		cartasJugadores((*it)->getNombre(), (*it)->getMano());
 	}
 	cartasComunitarias();
 
 }
 
+/**
+* @brief Imprime cartas de los jugadores.
+* @param nombre char *
+* @param mano list<Carta*>
+*/
 void PruebaDealer::cartasJugadores(char* nombre, list<Carta*> mano)
 {
 	cout << "Las  cartas de " << nombre << " son: "<< endl;
@@ -53,6 +66,9 @@ void PruebaDealer::cartasJugadores(char* nombre, list<Carta*> mano)
 	cout << endl;
 }
 
+/**
+* @brief Imprime cartas comunatarias.
+*/
 void PruebaDealer::cartasComunitarias()
 {
 	cout << "Las comunitarias son: " << endl;

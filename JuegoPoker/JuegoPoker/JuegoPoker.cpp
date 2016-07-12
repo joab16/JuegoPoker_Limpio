@@ -32,6 +32,7 @@ void pruebas()
 
 	cout << endl << "Prueba de carta (Verificar que se cree la carta con los valores enviados)\n\n";
 	PruebaCarta * pCarta = new PruebaCarta(10, 4);
+	cout << "Carta creada:" << pCarta <<endl;
 	system("pause");
 
 	delete pCarta;

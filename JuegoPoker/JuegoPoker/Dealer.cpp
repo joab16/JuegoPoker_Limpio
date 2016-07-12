@@ -2,22 +2,38 @@
 #include "Dealer.h"
 #include "Deck.h"
 
+/**
+* @brief Constructor (exclusivo para pruebaDealer). Estable que está en la ronda 1.
+*/
 Dealer::Dealer()
 {
 	ronda = 1;
 }
 
+/**
+* @brief Constructor. Llama a incializar juego.
+* @param ciegaPequenna integer
+* @param numeroJugadores integer
+*/
 Dealer::Dealer(int ciegaPequenna, int numeroJugadores)
 {
 	inicializarJuego(ciegaPequenna, numeroJugadores);
 }
 
+/**
+* @brief Destructor.
+*/
 Dealer::~Dealer()
 {
 	delete deck;
 	delete jugada;
 }
 
+/**
+* @brief Inicia el juego.
+* @param ciegaPequenna integer
+* @param numeroJugadores integer
+*/
 void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 {
 	deck = new Deck();
@@ -25,20 +41,26 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 	this->ciegaPequenna = ciegaPequena;
 	this->ciegaGrande = 2 * ciegaPequena;
 	this->numeroJugadores = numeroJugador;
-	for (int i = 0; i < numeroJugadores; i++) {
+	
+	for (int i = 0; i < numeroJugadores; i++) 
+	{
 		dinero = rand() % 40000 + 10000;
 		jugadores.push_front(new Jugador("Alexa", dinero));
 	}
-	turnoActual = 0;
+
+	turnoActual = 0; //NO SE USA
 	bote = 0;
-	aumento = false; //
+	aumento = false; //NUEVO
 	ronda = 1;
-	//for (int i = 0; i < 5 && finalizar != true; ++i) //reparte las cartas las 5 rondas o hasta que quede 1 jugador
+	//for (int i = 0; i < 5 && finalizar != true; ++i) //reparte las cartas las 5 rondas o hasta que quede 1 jugador. Esta comentado hasta que este lo de jugadas :)
 	//{
 		repartirCartas();
 	/*}*/
 }
 
+/**
+* @brief Reparte las cartas.
+*/
 void Dealer::repartirCartas()
 {
 	if (jugadores.size() != 1) //verifica que no quede solo un jugador, sino finaliza el juego :o
@@ -46,6 +68,7 @@ void Dealer::repartirCartas()
 		for (int i = 0; i < 5; i++) {
 			comunitarias.push_front(deck->obtenerCarta());
 		}
+	
 		for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); it++)
 		{
 			if (ronda == 1)
@@ -70,14 +93,19 @@ void Dealer::repartirCartas()
 	}
 }
 
-bool Dealer::solicitarDecisiones(Jugador * it)
-{ //cambio esto porque en ningun monmento se le manda la mano para ver que calificacion se tiene :o
+/**
+* @brief Solicita la decision del jugado: sigue, se retira o aumenta.
+* @param jugador Jugador *
+* @return decicion bool
+*/
+bool Dealer::solicitarDecisiones(Jugador * jugador)
+{ //cambio esto porque en ningun monmento se le manda la mano para ver que calificacion se tiene :o Antes se mandaba Carta * mano[]
 	bool seguir;
-	double calificacion = jugada->obtenerCalificacion(it->mano);
-	int decision = it->tomarDecision(calificacion);
+	double calificacion = jugada->obtenerCalificacion(jugador->mano);
+	int decision = jugador->tomarDecision(calificacion);
 	if (decision == 0) //decide retirarse
 	{
-		eliminarJugador(it);
+		eliminarJugador(jugador);
 		seguir = false;
 	}
 	else
@@ -100,6 +128,10 @@ bool Dealer::solicitarDecisiones(Jugador * it)
 	return seguir;
 }
 
+/**
+* @brief Elimina al jugador si decide retirarse.
+* @param jugador Jugador *
+*/
 void Dealer::eliminarJugador(Jugador * jugador)
 {
 	list<Jugador*>::iterator ite = jugadores.begin();
@@ -115,7 +147,11 @@ void Dealer::eliminarJugador(Jugador * jugador)
 	}
 }
 
-// cambie de char * a Jugador * para que sea facil all repartir el dinero y asi. el parametro que recibia no servia, en mi opinion xd
+// cambie de char * a Jugador * para que sea facil al repartir el dinero y asi. el parametro que recibia no servia, en mi opinion xd
+/**
+* @brief Decide quien es el ganador
+* @return ganador Jugador *
+*/
 Jugador * Dealer::seleccionarGanador()
 {
 	Jugador * ganador = NULL;
@@ -143,22 +179,35 @@ Jugador * Dealer::seleccionarGanador()
 }
 
 //se reparte dinero de una vez al ganador
+/**
+* @brief Reparte dinero al ganador.
+* @param jugador Jugador *
+*/
 void Dealer::repartirDinero(Jugador * ganador)
 {
 	ganador->dineroRestante = bote;
 }
 
+/**
+* @brief Agrega al bote el dinero de las apuestas.
+* @param apuesta int
+*/
 void Dealer::llenarBote(int apuesta)
 {
 	bote += apuesta;
 }
 
+//ESTE NO SE SI SIRVE
 void Dealer::revelar()
 {
 	//return comunitarias;
 }
 
-//ale
+//NUEVO
+/**
+* @brief Imprime mano de cada jugador
+* @param out ostream &
+*/
 void Dealer::imprimir(ostream & out)
 {
 	for (list<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it)
@@ -171,6 +220,10 @@ void Dealer::imprimir(ostream & out)
 	}
 }
 
+//NUEVO
+/**
+* @brief Termina el juego.
+*/
 void Dealer::finalizar()
 {
 	Jugador * ganador = seleccionarGanador();
@@ -180,7 +233,13 @@ void Dealer::finalizar()
 	}
 }
 
-// ale
+//NUEVO
+/**
+* @brief Sobrecarga del operador <<
+* @param out ostream &
+* @param d Dealer *
+* @return out ostream &
+*/
 ostream & operator<<(ostream & out, Dealer * d)
 {
 	d->imprimir(out);

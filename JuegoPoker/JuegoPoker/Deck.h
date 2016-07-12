@@ -1,10 +1,11 @@
 /**
 * @class Deck
-* @brief Lista de las cartas del juego.
+* @brief Cartas del juego.
 */
 #pragma once
 #include "stdafx.h"
 #include "Carta.h"
+
 using namespace std;
 
 class Deck
