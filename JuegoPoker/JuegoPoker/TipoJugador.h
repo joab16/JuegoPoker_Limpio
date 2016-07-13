@@ -13,17 +13,21 @@
 class TipoJugador {
 
 private:
-	int apuestaMinima;//no se sa
-	int apuestaMaxima;//no se usa
-	list<Deck> mejorJugada; //no se ha usado
-	double probabilidadGane; //no se ha usado
+	list<Carta*> mejorJugada; 
+	float probabilidadGane; 
 
 public:
 	TipoJugador();
 
 	~TipoJugador();
 
-	double probabilidadMinimaRetiro;  /*!< varible double probabilidadMinimaRetiro */
+	float probabilidadMinimaRetiro;  /*!< varible double probabilidadMinimaRetiro */
+
+	list<Carta*> getMejorJugada();
+	void setMejorJugada(list<Carta*>&);
+
+	float getProbabilidad();
+	void setProbabilidad(float);
 
 //borre tomar decision, no se ocupaba
 

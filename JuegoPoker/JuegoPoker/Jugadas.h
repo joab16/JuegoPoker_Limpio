@@ -10,18 +10,15 @@
 class Jugadas
 {
 private:
-	int cantidadCartas; /*!< varible integer cantidadCartas*/
-	double calificacion; /*!< varible double calificacion*/
-
+	int cantidadCartas; /*!< varible integer cantidadCartas*/	
+	
 public:
 	Jugadas();
 	~Jugadas();
 
 	double establecerPorcentajeExito(list <Carta *>, list <Carta *>);
-
-	void establecerCalificacion(double);
-
-	int compararJugadas(list<Carta *>, list <Carta *>/*, list <Carta *>*/);
+	
+	int compararJugadas(list<Carta *>, list <Carta *>, float);
 
 	int esFlorImperial(list <Carta *>, list <Carta *>);
 
@@ -43,7 +40,7 @@ public:
 
 	int esCartaAlta(list <Carta *>, list <Carta *>);
 	
-	double obtenerCalificacion(list<Carta*>);
-
 	list <Carta *> ordenaLista(list <Carta *>, list <Carta *>);
+
+	list <Carta *> mejorJugada; /*!< lista que contiene la mejor jugada*/
 };

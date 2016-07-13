@@ -66,12 +66,6 @@ double Jugadas::establecerPorcentajeExito(list<Carta*> comunitarias, list<Carta*
 	return porcentaje;
 }
 
-//me parece que esta no es necesaria :o
-void Jugadas::establecerCalificacion(double calificacion)
-{
-	this -> calificacion = calificacion;
-}
-
 // cambie valor de retorno de double a int para que devuelva quien es mayor, 1 o 2,
 /**
 * @brief Compara manos de dos jugadores
@@ -79,11 +73,108 @@ void Jugadas::establecerCalificacion(double calificacion)
 * @param mano2 list<Carta*>
 * @return mayor int
 */
-int Jugadas::compararJugadas(list<Carta *> comunitarias, list<Carta *> mano1/*, list<Carta *> mano2*/)
+int Jugadas::compararJugadas(list<Carta *> cartasJugador1, list<Carta *> cartasJugador2, float probabilidad)
 {
-	list<Carta *> cartasJugador1 = ordenaLista(comunitarias, mano1);
-	list<Carta *> cartasJugador2;
-	return 0;
+	if (probabilidad == 0.1f) //cartaAlta
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;			
+		}
+	}
+	else if (probabilidad == 0.2f) //Pareja
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.3f) //Doble pareja
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+		else if(cartasJugador1.front()->getValor() != cartasJugador2.front()->getValor())
+		{
+			return cartasJugador1.front()->getValor() > cartasJugador2.front()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.4f) //Trio
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.5f) //Escalera
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.6f) //Color
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.7f) //Full
+	{
+		int valor1 = cartasJugador1.front()->getValor(), valor2 = cartasJugador2.front()->getValor(), cont = 0;
+		for (list<Carta *>::iterator it = cartasJugador1.begin(); next(it, 1) != cartasJugador1.end(); ++it)
+		{
+			if ((*it)->getValor() == valor1)
+			{
+				++cont;
+			}
+			else
+			{
+				cont = 1;
+				valor1 = (*it)->getValor();
+			}
+			if (cont == 3)
+			{
+				break;
+			}
+		}
+		cont = 0;
+		for (list<Carta *>::iterator it = cartasJugador2.begin(); next(it, 1) != cartasJugador2.end(); ++it)
+		{
+			if ((*it)->getValor() == valor2)
+			{
+				++cont;
+			}
+			else
+			{
+				cont = 1;
+				valor2 = (*it)->getValor();
+			}
+			if (cont == 3)
+			{
+				break;
+			}
+		}
+		return valor1 > valor2 ? 1 : 2;
+	}
+	else if (probabilidad == 0.8f) //Poker
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	else if (probabilidad == 0.9f) //Escalera color
+	{
+		if (cartasJugador1.back()->getValor() != cartasJugador2.back()->getValor())
+		{
+			return cartasJugador1.back()->getValor() > cartasJugador2.back()->getValor() ? 1 : 2;
+		}
+	}
+	
+	return rand() % 2 + 1;
 }
 
 /**
@@ -94,6 +185,7 @@ int Jugadas::compararJugadas(list<Carta *> comunitarias, list<Carta *> mano1/*, 
 int Jugadas::esFlorImperial(list<Carta *> comunitarias, list<Carta *> mano)
 {
 	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	
 	int banderaResultado = 0;
 	int primerValor = 0;
 
@@ -104,6 +196,7 @@ int Jugadas::esFlorImperial(list<Carta *> comunitarias, list<Carta *> mano)
 			if ((*it)->getPalo() == (*next(it, 1))->getPalo())
 			{
 				++banderaResultado;
+				this->mejorJugada.push_back(*it);
 			}
 		}
 		else
@@ -111,15 +204,18 @@ int Jugadas::esFlorImperial(list<Carta *> comunitarias, list<Carta *> mano)
 			if ((*it)->getValor() != (*next(it, 1))->getValor())
 			{
 				banderaResultado = 0;
+				this->mejorJugada.clear();
 			}
 		}
 		if ((banderaResultado == 4) && ((*next(it, 1))->getValor() != 14))
 		{
 			banderaResultado = 0;
+			this->mejorJugada.clear();
 		}
 	}
 	if (banderaResultado == 4)
-	{		
+	{
+		//devolver lista en vez de int
 		return 1;
 	}
 	else
@@ -145,13 +241,15 @@ int Jugadas::esEscaleraColor(list<Carta *> comunitarias, list<Carta *> mano)
 		{
 			if ((*it)->getPalo() == (*next(it, 1))->getPalo())
 		    {
-			   ++banderaResultado;
+				this->mejorJugada.push_back(*it);
+				++banderaResultado;
 		    }
 		}
 		else
 		{
 			if ((*it)->getValor() != (*next(it, 1))->getValor())
 			{
+				this->mejorJugada.clear();
 				banderaResultado = 0;
 			}
 		}
@@ -181,10 +279,12 @@ int Jugadas::esPoker(list<Carta *> comunitarias, list<Carta *> mano)
 		if ((*it)->getValor() == (*next(it, 1))->getValor())
 		{
 			++banderaResultado;
+			this->mejorJugada.push_back(*it);
 		}
 		else
 		{
 			banderaResultado = 0;
+			this->mejorJugada.clear();
 		}
 	}
 	if (banderaResultado == 3)
@@ -209,6 +309,7 @@ int Jugadas::esFull(list <Carta *> comunitarias, list <Carta *> mano)
 		if (((*it)->getValor() == (*next(it, 1))->getValor()))
 		{
 			++banderaResultado;
+			this->mejorJugada.push_back(*it);
 		}
 		else if (banderaResultado == 2)
 		{
@@ -227,6 +328,7 @@ int Jugadas::esFull(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 	else
 	{
+		this->mejorJugada.clear();
 		return 0;
 	}
 	
@@ -242,6 +344,7 @@ int Jugadas::esColor(list <Carta *> comunitarias, list <Carta *> mano)
 	{
 		if (((*it)->getPalo() == (*next(it, 1))->getPalo()))
 		{
+			this->mejorJugada.push_back(*it);
 			++banderaResultado;
 		}
 	}
@@ -251,6 +354,7 @@ int Jugadas::esColor(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 	else
 	{
+		this->mejorJugada.clear();
 		return 0;
 	}
 }
@@ -265,12 +369,14 @@ int Jugadas::esEscalera(list <Carta *> comunitarias, list <Carta *> mano)
 	{
 		if (((*it)->getValor() + 1 == (*next(it, 1))->getValor()))
 		{
+			this->mejorJugada.push_back(*it);
 			++banderaResultado;
 		}
 		else
 		{
 			if ((*it)->getValor() != (*next(it, 1))->getValor())
 			{
+				this->mejorJugada.clear();
 				banderaResultado = 0;
 			}
 		}
@@ -281,6 +387,7 @@ int Jugadas::esEscalera(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 	else
 	{
+		this->mejorJugada.clear();
 		return 0;
 	}
 }
@@ -295,6 +402,7 @@ int Jugadas::esTrio(list <Carta *> comunitarias, list <Carta *> mano)
 	{
 		if (((*it)->getValor() == (*next(it, 1))->getValor()))
 		{			
+			this->mejorJugada.push_back(*it);
 			++banderaResultado;
 		}
 	}
@@ -304,6 +412,7 @@ int Jugadas::esTrio(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 	else
 	{
+		this->mejorJugada.clear();
 		return 0;
 	}	
 }
@@ -318,6 +427,7 @@ int Jugadas::esDoblePareja(list <Carta *> comunitarias, list <Carta *> mano)
 	{
 		if (((*it)->getValor() == (*next(it, 1))->getValor()) && (*it)->getValor() != primerValor)
 		{
+			this->mejorJugada.push_back(*it);
 			primerValor = (*it)->getValor();
 			++banderaResultado;
 		}
@@ -328,6 +438,7 @@ int Jugadas::esDoblePareja(list <Carta *> comunitarias, list <Carta *> mano)
 	}
 	else
 	{
+		this->mejorJugada.clear();
 		return 0;
 	}
 }
@@ -341,6 +452,7 @@ int Jugadas::esPareja(list <Carta *> comunitarias, list <Carta *> mano)
 	{
 		if ((*it)->getValor() == (*next(it, 1))->getValor())
 		{
+			this->mejorJugada.push_back(*it);
 			banderaResultado = 1;
 		}
 	}
@@ -362,26 +474,22 @@ int Jugadas::esPareja(list <Carta *> comunitarias, list <Carta *> mano)
 			break;
 		}
 	}*/
-	
+	if (banderaResultado == 0)
+	{
+		this->mejorJugada.clear();
+	}
 	return banderaResultado;
 }
 
 int Jugadas::esCartaAlta(list <Carta *> comunitarias, list <Carta *> mano)
 {
-	return 0;
+	list <Carta *> cartasTotales = ordenaLista(comunitarias, mano);
+	int banderaResultado = 0;
+
+	this->mejorJugada.push_back(*cartasTotales.end());
+	return 1;
 }
 
-//NUEVO
-
-/**
-* @brief Obtiene calificacion de una mano
-* @param mano list<Carta*>
-* @return calificacion double
-*/
-double Jugadas::obtenerCalificacion(list<Carta*> mano)
-{
-	return this->calificacion;
-}
 
 list<Carta*> Jugadas::ordenaLista(list<Carta*> comunitarias, list<Carta*> mano)
 {

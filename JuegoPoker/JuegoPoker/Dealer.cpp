@@ -42,20 +42,20 @@ void Dealer::inicializarJuego(int ciegaPequena, int numeroJugador)
 	this->ciegaGrande = 2 * ciegaPequena;
 	this->numeroJugadores = numeroJugador;
 	
-	for (int i = 0; i < numeroJugadores; i++) 
+	for (int i = 0; i < this->numeroJugadores; i++) 
 	{
 		dinero = rand() % 40000 + 10000;
 		jugadores.push_front(new Jugador("Alexa", dinero));
 	}
-
-	turnoActual = 0; //NO SE USA
+	
 	bote = 0;
 	aumento = false; //NUEVO
 	ronda = 1;
-	//for (int i = 0; i < 5 && finalizar != true; ++i) //reparte las cartas las 5 rondas o hasta que quede 1 jugador. Esta comentado hasta que este lo de jugadas :)
-	//{
+	for (int i = 0; i < 5 && this->jugadores.size() == 1; ++i) //reparte las cartas las 5 rondas o hasta que quede 1 jugador. Esta comentado hasta que este lo de jugadas :)
+	{
 		repartirCartas();
-	/*}*/
+	}
+	this->finalizar();
 }
 
 /**
@@ -83,6 +83,7 @@ void Dealer::repartirCartas()
 					(*it)->añadirAMano(deck->obtenerCarta());
 				}
 			}
+			//(*it)->
 		}
 		++ronda;
 		aumento = false; // termina esa ronda y comienza de nuevo el aumento;
@@ -101,7 +102,7 @@ void Dealer::repartirCartas()
 bool Dealer::solicitarDecisiones(Jugador * jugador)
 { //cambio esto porque en ningun monmento se le manda la mano para ver que calificacion se tiene :o Antes se mandaba Carta * mano[]
 	bool seguir;
-	double calificacion = jugada->obtenerCalificacion(jugador->mano);
+	float calificacion = jugador->tipo->analizarProbabilidad(this->comunitarias, jugador->mano);		
 	int decision = jugador->tomarDecision(calificacion);
 	if (decision == 0) //decide retirarse
 	{
@@ -161,17 +162,34 @@ Jugador * Dealer::seleccionarGanador()
 	while (jugador1 != jugadores.end())
 	{
 		if (jugador2 != jugadores.end())
-		{
-			if (jugada->compararJugadas((*jugador1)->mano, (*jugador2)->mano) == 1)
+		{			
+			if ((*jugador1)->tipo->getProbabilidad() > (*jugador2)->tipo->getProbabilidad())
 			{
+				//es mayor la probabilidad de gane del jugador1
 				ganador = (*jugador1);
 				++jugador2;
 			}
-			else
+			else if ((*jugador1)->tipo->getProbabilidad() < (*jugador2)->tipo->getProbabilidad())
 			{
+				//es mayor la probabilidad de gane del jugador2
 				ganador = (*jugador2);
 				jugador1 = ++jugador2;
 			}
+			else
+			{
+				//Las probabilidades son las mismas
+				if (jugada->compararJugadas((*jugador1)->tipo->getMejorJugada(), (*jugador2)->tipo->getMejorJugada(), (*jugador1)->tipo->getProbabilidad()) == 1)
+				{
+					ganador = (*jugador1);
+					++jugador2;
+				}
+				else
+				{
+					ganador = (*jugador2);
+					jugador1 = ++jugador2;
+				}
+			}
+			
 		}
 	}
 
@@ -226,7 +244,15 @@ void Dealer::imprimir(ostream & out)
 */
 void Dealer::finalizar()
 {
-	Jugador * ganador = seleccionarGanador();
+	Jugador * ganador;
+	if (this->jugadores.size() == 1)
+	{
+		ganador = this->jugadores.back();
+	}
+	else
+	{
+		ganador = seleccionarGanador();
+	}
 	if (ganador != NULL)
 	{
 		repartirDinero(ganador);

@@ -28,7 +28,7 @@ public:
 	Jugador(char*, int);
 	~Jugador();
 
-	int tomarDecision(double);
+	int tomarDecision(float);
 
 	void añadirAMano(Carta *);
 

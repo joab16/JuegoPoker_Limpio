@@ -5,8 +5,7 @@
 * @brief Constructor.
 */
 TipoJugador::TipoJugador()
-{
-	//estableci probablidad :)
+{	
 	probabilidadMinimaRetiro = (rand() % 10) / 10;
 }
 
@@ -17,11 +16,32 @@ TipoJugador::~TipoJugador()
 {
 }
 
-float TipoJugador::analizarProbabilidad(list<Carta*>&comunitarias, list<Carta*>&mano)
+list<Carta*> TipoJugador::getMejorJugada()
 {
+	return this->mejorJugada;;
+}
+
+void TipoJugador::setMejorJugada(list<Carta*>& jugada)
+{
+	this->mejorJugada = jugada;
+}
+
+float TipoJugador::getProbabilidad()
+{
+	return this->probabilidadGane;
+}
+
+void TipoJugador::setProbabilidad(float probabilidad)
+{
+	this->probabilidadGane = probabilidad;
+}
+
+float TipoJugador::analizarProbabilidad(list<Carta*>&comunitarias, list<Carta*>&mano)
+{	
 	Jugadas *j = new Jugadas();
-	j->establecerPorcentajeExito(comunitarias, mano);
-	return 0.0f;
+	this->setProbabilidad(j->establecerPorcentajeExito(comunitarias, mano));
+	this->mejorJugada = j->mejorJugada;
+	return this->getProbabilidad();
 }
 
 list<Carta*> TipoJugador::encontrarMejorJugada(list<Carta*>&comunitarias, list<Carta*>&mano)

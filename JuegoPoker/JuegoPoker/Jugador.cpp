@@ -26,7 +26,7 @@ Jugador::~Jugador()
 * @param calificacion double
 * @return decision int
 */
-int Jugador::tomarDecision(double calificacion)
+int Jugador::tomarDecision(float calificacion)
 {
 	if (calificacion <= tipo->probabilidadMinimaRetiro)
 		decision = 1;
